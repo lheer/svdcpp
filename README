@@ -2,9 +2,6 @@ Description:
     Generate a C++ header file from a CMSIS SVD file for modern, save register access.
     Header file structure is in accordance to the technique presented in this paper: https://yogiken.files.wordpress.com/2010/02/c-register-access.pdf
 
-Dependencies:
-    - https://github.com/posborne/cmsis-svd/tree/master/python (use git master, pip contains buggy and outdated version)
-
 Usage:
     To generate the header, run "python3 mkheader.py <SVD_FILE.svd>"
-    The resulting files are "reg.hpp" and "DEVICE.hpp".
+    The resulting files are "reg.hpp" and "<DEVICE>.hpp".

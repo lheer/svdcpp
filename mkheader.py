@@ -1,6 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os
+import sys
 import argparse
 import re
 
@@ -22,7 +23,7 @@ class FieldNamespace:
             "read-only" : "ro_t",
             "write-only" : "wo_t",
             None : "noacc_t"
-        }.get(access,'err')
+        }.get(access, "err")
 
     def dump(self, fh):
         fh.write(self.field_comment)
@@ -55,7 +56,7 @@ class RegisterNamespace:
             "read-only" : "ro_t",
             "write-only" : "wo_t",
             None : "noacc_t"
-        }.get(access,'err')
+        }.get(access, "err")
 
     def dump(self, fh):
         if self.fields != None:
@@ -103,15 +104,15 @@ def subst_target(srcfile, dstfile, nameToSub):
     f2.close()
 
 
-def main():
-    parser = argparse.ArgumentParser(description = 'Generate C++ register header from CMSIS SVD XML file')
-    parser.add_argument('input', metavar='inputsvd', nargs=1, help='Input SVD file to generate header from')
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Generate C++ register header from CMSIS SVD XML file")
+    parser.add_argument("input", metavar="inputsvd", nargs=1, help="Input SVD file to generate header from")
     args = parser.parse_args()
 
     if args.input:
         file = args.input[0]
     else:
-        return
+        return -1
 
     parser = SVDParser.for_xml_file(file)
     dev = parser.get_device()
@@ -129,6 +130,8 @@ def main():
 
         f.write("};\n")
 
+    return 0
+
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
